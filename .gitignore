@@ -1,0 +1,6 @@
+barchart/node_modules
+barchart/dist
+barchart/.tmp
+barchart/.sass-cache
+barchart/app/bower_components
+barchart/nbproject
