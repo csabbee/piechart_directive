@@ -18,12 +18,6 @@ angular.module('piechartDirectiveApp')
       var g = svg.append('g');
       
 
-      svg.on('mousedown', function(){
-        scope.$apply(function(){
-          var num = Math.round(Math.random()* 10) + 1;
-          scope.data = d3.range(num).map(Math.random);
-        });
-      });
       //add the <path>s for each arc slice
       var arcs = g.selectAll('path');
       
@@ -32,12 +26,18 @@ angular.module('piechartDirectiveApp')
       }, function(){
         width = el.clientWidth;
         height = el.clientHeight;
+        
         min = Math.min(width, height);
+        
         arc.outerRadius(min / 2 * 0.9).innerRadius(min / 2 * 0.5);
+        
         svg.attr({width: width, height: height});
+        
         g.attr('transform', 'translate('+ width / 2 + ',' + height / 2 + ')');
+        
         arcs.attr('d', arc);
       });
+      
       function arcTween(a) {
         //see: http://bl.ocks.org/mbstock/1346410
         var i = d3.interpolate(this._current, a);
@@ -57,7 +57,7 @@ angular.module('piechartDirectiveApp')
                 .style('stroke', 'white')
                 .attr('fill', function(d, i){ return color(i);})
                 .each(function(d){
-                  this._current = { startAngle: 2 * Math.PI - 0.001, endAngle: 2* Math.PI - 0.004};
+                  this._current = { startAngle: 2 * Math.PI - 0.001, endAngle: 2 * Math.PI};
                 })
                 .transition()
                 .duration(duration)
@@ -68,9 +68,15 @@ angular.module('piechartDirectiveApp')
                 .duration(duration)
                 .each(function(d){
                   d.startAngle = 2 * Math.PI - 0.001;
-                  d.endAngle = 2 * Math.PI - 0.004;
+                  d.endAngle = 2 * Math.PI;
                 })
                 .attrTween('d', arcTween).remove();
+      });
+      svg.on('mousedown', function(){
+        scope.$apply(function(){
+          var num = Math.round(Math.random()* 10) + 1;
+          scope.data = d3.range(num).map(Math.random);
+        });
       });
     }
     return {
