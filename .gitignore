@@ -4,3 +4,5 @@ barchart/.tmp
 barchart/.sass-cache
 barchart/app/bower_components
 barchart/nbproject
+circle/HTML5Application/nbproject
+piechart_directive/nbproject
