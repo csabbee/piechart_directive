@@ -6,3 +6,6 @@ barchart/app/bower_components
 barchart/nbproject
 circle/HTML5Application/nbproject
 piechart_directive/nbproject
+piechart_directive/node_modules
+piechart_directive/dist
+piechart_directive/.tmp
