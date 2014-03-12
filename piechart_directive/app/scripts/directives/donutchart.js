@@ -14,16 +14,25 @@ angular.module('piechartDirectiveApp')
       var arc = d3.svg.arc()
               .outerRadius(min / 2 * 0.9)
               .innerRadius(min / 2 * 0.5);
-      var svg = d3.select(el).append('svg')
-              .attr({width: width, height: height})
-              .append('g')
-              .attr('transform', 'translate('+ width / 2 + ',' + height / 2 + ')');
+      var svg = d3.select(el).append('svg');
+      var g = svg.append('g');
+      
 
       //add the <path>s for each arc slice
-      svg.selectAll('path').data(pie(data))
+      var arcs = g.selectAll('path').data(pie(data))
               .enter().append('path')
-              .attr('d', arc)
               .attr('fill', function(d, i){ return color(i);} );
+      scope.$watch(function(){
+        return el.clientWidth * el.clientHeight;
+      }, function(){
+        width = el.clientWidth;
+        height = el.clientHeight;
+        min = Math.min(width, height);
+        arc.outerRadius(min / 2 * 0.9).innerRadius(min / 2 * 0.5);
+        svg.attr({width: width, height: height});
+        g.attr('transform', 'translate('+ width / 2 + ',' + height / 2 + ')');
+        arcs.attr('d', arc);
+      });
     }
     return {
       restrict: 'E',

@@ -1,8 +1,11 @@
 'use strict';
 /*global d3*/
 angular.module('piechartDirectiveApp')
-  .controller('DonutChartCtrl', function ($scope) {
-    $scope.charts = d3.range(100).map(function(){
+  .controller('DonutChartCtrl', function ($scope, $window) {
+    $scope.charts = d3.range(10).map(function(){
       return d3.range(10).map(Math.random);
+    });
+    angular.element($window).on('resize', function(){
+      $scope.$apply();
     });
   });
